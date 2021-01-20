@@ -14,7 +14,8 @@ class ConferenceController extends AbstractController               // Classe h�
      */
     public function index(): Response                           // /!\ il faut passer par l'objet Response (réponse http)
     {      
-        return new Response("Ok");                                                     // par défaut le maker retouorne une page twig (créée par le maker)
+        $number = random_int(0, 100);                               
+        return new Response('Lucky number: '.$number.'');           // par défaut le maker retouorne une page twig (créée par le maker)
         /* return $this->render('conference/index.html.twig', [
             'controller_name' => 'ConferenceController',
         ]); */
