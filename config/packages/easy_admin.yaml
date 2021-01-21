@@ -18,10 +18,18 @@ easy_admin:
             class: App\Entity\Conference
             list:
                 fields:
-                    - { property: "Year", type: "string" }
-                    - { property: "City", type: "string" }
+                    - { property: "year", type: "string" }
+                    - { property: "city", type: "string" }
                     - { property: "isInternational", type: "boolean" }
 
+            edit:
+                fields:
+                    - { property: "city" }
+                    - { property: "year" }
+                    - { property: "isInternational" }
+                    - { property: "comments" }
+
+                    
 
         Comment:
             class: App\Entity\Comment
@@ -30,6 +38,7 @@ easy_admin:
                     - author
                     - { property: "email", type: "email" }
                     - { property: "createdAt", type: "datetime" }
+                    - { property: "conference" }
 
                 sort: ["createdAt", "ASC"]
                 filters: ["conference"]
@@ -41,6 +50,7 @@ easy_admin:
                           type: datetime,
                           type_options: { attr: { readonly: true } },
                       }
+                    - { property: "note" }
                     - "author"
                     - { property: "email", type: "email" }
                     - text
