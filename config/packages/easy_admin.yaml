@@ -18,8 +18,8 @@ easy_admin:
             class: App\Entity\Conference
             list:
                 fields:
-                    - Year
-                    - City
+                    - { property: "Year", type: "datetime" }
+                    - { property: "City" }
                     - { property: "isInternational", type: "boolean" }
 
 
@@ -28,8 +28,8 @@ easy_admin:
             list:
                 fields:
                     - author
-                    - { property: "createdAt", type: "datetime" }
                     - { property: "email", type: "email" }
+                    - { property: "createdAt", type: "datetime" }
 
                 sort: ["createdAt", "ASC"]
                 filters: ["conference"]
