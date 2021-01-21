@@ -18,8 +18,8 @@ easy_admin:
             class: App\Entity\Conference
             list:
                 fields:
-                    - { property: "Year", type: "datetime" }
-                    - { property: "City" }
+                    - { property: "Year", type: "string" }
+                    - { property: "City", type: "string" }
                     - { property: "isInternational", type: "boolean" }
 
 
