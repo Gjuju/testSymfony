@@ -133,7 +133,7 @@ class Comment
 
     public function __toString(): string
     {
-        return "Auteur : ". $this->author ." / Date : ". $this->createdAt->format('d-m-Y') .' / Note : ' . $this->note;
+        return "Auteur : ". $this->author ." - Date : ". $this->createdAt->format('d/m/Y') .' - Note : ' . $this->note;
     }
 
     public function getPhotoFileName(): ?string
