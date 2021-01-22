@@ -20,11 +20,11 @@
 
   <ul class="list-group">
     {% for comment in comments %}
-      <li class="list-group-item list-group-item-action">
-        {{ 'From : '~ comment.author ~ ' - Email : '~ comment.email ~ ' - Year : ' ~  comment.createdAt|date("d-m-Y")}}
+      <li class="list-group-item list-group-item-action list-group-item-dark">
+        <h5>{{ 'De : '~ comment.author ~ ' - email : '~ comment.email ~ ' - date : ' ~  comment.createdAt|date("d-m-Y")}}<h5>
       </li>
       <li class="list-group-item list-group-item-action">
-        {{'Comment : '~ comment.text }}
+        <h5>{{ comment.text }}</h5>
       </li>
     {% endfor %}
   </ul>
