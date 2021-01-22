@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ conference.city ~ ' - ' ~ conference.year }}
+{% endblock %}
+
+{% block body %}
+  <h1>
+    {{ conference.city ~ ' - ' ~ conference.year }}
+  </h1>
+  {% if conference.isinternational == true %}
+    <h3 class="mb-4">
+      International conference
+    </h3>
+  {% else %}
+    <h3 class="mb-4">
+      Local conference
+    </h3>
+  {% endif %}
+
+  <ul class="list-group">
+    {% for comment in comments %}
+      <li class="list-group-item list-group-item-action">
+        {{ 'From : '~ comment.author ~ ' - Email : '~ comment.email ~ ' - Year : ' ~  comment.createdAt|date("d-m-Y")}}
+      </li>
+      <li class="list-group-item list-group-item-action">
+        {{'Comment : '~ comment.text }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

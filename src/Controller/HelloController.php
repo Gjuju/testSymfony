@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 class HelloController extends AbstractController
 {
     /**
-     * @Route("/hello", name="homepage")
+     * @Route("/hello", name="hello")
      */
     public function index(Request $request): Response
     {
