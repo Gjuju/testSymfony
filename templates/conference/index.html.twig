@@ -11,7 +11,7 @@
 
   <ul class="list-group">
     {% for conference in conferences %}
-      <li class="list-group-item list-group-item-action"><a href="{{ path('conference', { id: conference.id }) }}">{{ conference.city ~" - "~ conference.year }}</a></li>
+      <li class="list-group-item list-group-item-action"><h4><a href="{{ path('conference', { id: conference.id }) }}">{{ conference.city ~" - "~ conference.year }}</a></h4></li>
     {% endfor %}
   </ul>
 

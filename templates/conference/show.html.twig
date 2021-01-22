@@ -18,14 +18,16 @@
     </h3>
   {% endif %}
 
-  <ul class="list-group">
     {% for comment in comments %}
-      <li class="list-group-item list-group-item-action list-group-item-dark">
-        <h5>{{ 'De : '~ comment.author ~ ' - email : '~ comment.email ~ ' - date : ' ~  comment.createdAt|date("d-m-Y")}}<h5>
-      </li>
-      <li class="list-group-item list-group-item-action">
-        <h5>{{ comment.text }}</h5>
-      </li>
+    <div class="card  mb-4" >
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-dark">
+          <h5>{{ 'De : '~ comment.author ~ ' - email : '~ comment.email ~ ' - date : ' ~  comment.createdAt|date("d-m-Y")}}<h5>
+        </li>
+        <li class="list-group-item ">
+          <h5>{{ comment.text }}</h5>
+        </li>
+      </ul>
+      </div>
     {% endfor %}
-  </ul>
 {% endblock %}
