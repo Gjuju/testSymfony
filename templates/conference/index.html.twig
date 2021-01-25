@@ -1,18 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Livre d’or des conférences
+	Livre d’or des conférences
 {% endblock %}
 
 {% block body %}
-  <h1 class="mb-4">
-    Faîtes-nous un retour !!!
-  </h1>
+	<h1 class="mb-4">
+		Choisissez une conférence.
+	</h1>
 
-  <ul class="list-group">
-    {% for conference in conferences %}
-      <li class="list-group-item list-group-item-action"><h4><a href="{{ path('conference', { id: conference.id }) }}">{{ conference.city ~" - "~ conference.year }}</a></h4></li>
-    {% endfor %}
-  </ul>
-
+	<ul class="list-group">
+		{% for conference in conferences %}
+			<li class="list-group-item list-group-item-action">
+				<h4>
+					<a href="{{ path( 'conference', { id: conference.id } ) }}">
+						{{ conference.city ~ ' - ' ~ conference.year }}
+					</a>
+				</h4>
+			</li>
+		{% endfor %}
+	</ul>
 {% endblock %}

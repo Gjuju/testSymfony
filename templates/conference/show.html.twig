@@ -1,33 +1,49 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  {{ conference.city ~ ' - ' ~ conference.year }}
+	{{ conference.city ~ ' - ' ~ conference.year }}
 {% endblock %}
 
 {% block body %}
-  <h1>
-    {{ conference.city ~ ' - ' ~ conference.year }}
-  </h1>
-  {% if conference.isinternational == true %}
-    <h3 class="mb-4">
-      Conférence internationale
-    </h3>
-  {% else %}
-    <h3 class="mb-4">
-      Conférence locale
-    </h3>
-  {% endif %}
+	<h1 class='mb-4'>
+		<u>
+			{{ conference.city ~ ' - ' ~ conference.year }}
+		</u>
+	</h1>
+	{% if conference.isinternational == true %}
+		<h4 class='mb-4'>
+			Conférence internationale
+		</h4>
+	{% else %}
+		<h4 class="mb-4">
+			Conférence locale
+		</h4>
+	{% endif %}
 
-    {% for comment in comments %}
-    <div class="card  mb-4" >
-      <ul class="list-group">
-        <li class="list-group-item list-group-item-dark">
-          <h5>{{ 'De : '~ comment.author ~ ' - email : '~ comment.email ~ ' - date : ' ~  comment.createdAt|date("d-m-Y")}}<h5>
-        </li>
-        <li class="list-group-item ">
-          <h5>{{ comment.text }}</h5>
-        </li>
-      </ul>
-      </div>
-    {% endfor %}
+	{% for comment in comments %}
+		<div class="card mb-4">
+			<div class="card-header">
+				<div class="row text-center font-weight-bold">
+					<div class="col">
+						{{ 'Auteur : ' ~ comment.author }}
+					</div>
+					<div class="col">
+						{{ 'E-mail : ' ~ comment.email }}
+					</div>
+				</div>
+			</div>
+			<div class="card-body text-center">
+				{{ comment.text }}
+			</div>
+
+			<div class="card-footer">
+				<div class="row text-center font-weight-bold">
+					<div class="col"></div>
+					<div class="col">
+						{{ 'Date : ' ~ (comment.createdAt|date('d-m-Y')) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
 {% endblock %}

@@ -26,15 +26,14 @@ class ConferenceController extends AbstractController // Classe héritant de Abs
     /**
      * @Route("/conference/{id}", name="conference")
      */
-    public function show(Conference $conference, CommentRepository $commentRepository): Response {
-        return (
-            $this->render('conference/show.html.twig', [
-                'conference' => $conference,
-                'comments' => $commentRepository->findBy(
-                    ['conference' => $conference],
-                    ['createdAt' => 'DESC']
-                ),
-            ])
-        );
+    public function show(Conference $conference, CommentRepository $commentRepository): Response
+    {
+        return ($this->render('conference/show.html.twig', [
+            'conference' => $conference,
+            'comments' => $commentRepository->findBy(
+                ['conference' => $conference],
+                ['createdAt' => 'DESC']
+            ),
+        ]));
     }
 }
