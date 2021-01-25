@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Conference;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @method Conference|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +15,53 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ConferenceRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Conference::class);
+    }
+
+    public const PAGINATOR_PER_PAGE = 3;
+    public function getConferencePaginator(int $offset): Paginator
+    {
+        $query = $this->createQueryBuilder('c')
+            ->orderBy('c.city', 'ASC')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
+            ->getQuery();
+        return new Paginator($query);
+    }
+
+
+
+    public function getListYear()
+    {
+        $years = [];
+        foreach ($this->createQueryBuilder('c')
+            ->select('c.year')
+            ->distinct(true)
+            ->orderBy('c.year', 'ASC')
+            ->getQuery()
+            ->getResult() as $cols) {
+            $years[] = $cols['year'];
+        }
+        return $years;
+    }
+
+
+    
+    public function getListCity()
+    {
+        $cites = [];
+        foreach ($this->createQueryBuilder('c')
+            ->select('c.city')
+            ->distinct(true)
+            ->orderBy('c.city', 'ASC')
+            ->getQuery()
+            ->getResult() as $cols) {
+            $cites[] = $cols['city'];
+        }
+        return $cites;
     }
 
     // /**

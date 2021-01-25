@@ -1,23 +1,97 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Livre d’or des conférences
+  Livre d’or des conférences
 {% endblock %}
 
 {% block body %}
-	<h1 class="mb-4">
-		Choisissez une conférence.
-	</h1>
+  <h1 class="mt-4">
+    Choisissez une conférence.
+  </h1>
 
-	<ul class="list-group">
-		{% for conference in conferences %}
-			<li class="list-group-item list-group-item-action">
-				<h4>
-					<a href="{{ path( 'conference', { id: conference.id } ) }}">
-						{{ conference.city ~ ' - ' ~ conference.year }}
-					</a>
-				</h4>
-			</li>
-		{% endfor %}
-	</ul>
+  <div class="mt-4">
+    {% if previous >= 0 %}
+      <a href="{{
+        path(
+          'homepage',
+          {
+            offset: previous
+          }
+        )
+        }}"
+        class="btn btn-sm btn-primary">
+        <<
+      </a>
+    {% endif %}Il y a {{ (conferences|length) ~ ' conférence'
+      ~ ((conferences|length) > 1 ? 's' : '') }}
+
+    {% if next < (conferences|length) %}
+      <a href="{{
+        path(
+          'homepage',
+          {
+            offset: next
+          }
+        )
+        }}"
+        class="btn btn-sm btn-primary">
+        >>
+      </a>
+    {% endif %}
+  </div>
+
+  <form>
+    <div class="row form-group mt-4">
+      <label for="city" class="col-sm-1 col-form-label">Ville :</label>
+      <div class="col-sm-4">
+        <select type="text"
+          class="form-control"
+          id="city_search"
+          name="city_search">
+          <option></option>
+          {% for city in cities %}
+            <option {{ city == city ? 'selected' }}>
+              {{ city }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <label for="year" class="col-sm-1 col-form-label">Année :</label>
+      <div class="col-sm-4 form-group">
+        <select type="text"
+          class="form-control"
+          id="year_search"
+          name="year_search">
+          <option></option>
+          {% for year in years %}
+            <option {{ year == year ? 'selected' }}>
+              {{ year }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-sm-2 form-group">
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+      </div>
+    </div>
+  </form>
+
+  <ul class="list-group mt-4">
+    {% for conference in conferences %}
+      <li class="list-group-item list-group-item-action">
+        <h4>
+          <a href="{{
+            path(
+              'conference',
+              {
+                id: conference.id
+              }
+            )
+            }}">
+            {{ conference.city ~ ' - ' ~ conference.year }}
+          </a>
+        </h4>
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}

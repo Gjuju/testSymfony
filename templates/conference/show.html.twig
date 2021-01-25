@@ -1,49 +1,78 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ conference.city ~ ' - ' ~ conference.year }}
+  {{ conference }}
 {% endblock %}
 
 {% block body %}
-	<h1 class='mb-4'>
-		<u>
-			{{ conference.city ~ ' - ' ~ conference.year }}
-		</u>
-	</h1>
-	{% if conference.isinternational == true %}
-		<h4 class='mb-4'>
-			Conférence internationale
-		</h4>
-	{% else %}
-		<h4 class="mb-4">
-			Conférence locale
-		</h4>
-	{% endif %}
+  <div class="card mb-4">
+    <div class="card-header">
+      <h1 class="card-title font-weight-bold text-success">
+        {{ conference }}
+      </h1>
+      <h5 class="card-subtitle mb-2 text-muted">
+        {% if conference.isInternational %}
+          Conférence Internationale
+        {% else %}
+          Conférence française
+        {% endif %}
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4 col-md-2 font-weight-bold text-right">
+          Ville&nbsp;:
+        </div>
+        <div class="col-8 col-md-4 text-left">
+          {{ conference.city }}
+        </div>
+        <div class="col-4 col-md-2 font-weight-bold text-right">
+          Année&nbsp;:
+        </div>
+        <div class="col-8 col-md-4 text-left">
+          {{ conference.year }}
+        </div>
+      </div>
+    </div>
+  </div>
 
-	{% for comment in comments %}
-		<div class="card mb-4">
-			<div class="card-header">
-				<div class="row text-center font-weight-bold">
-					<div class="col">
-						{{ 'Auteur : ' ~ comment.author }}
-					</div>
-					<div class="col">
-						{{ 'E-mail : ' ~ comment.email }}
-					</div>
-				</div>
-			</div>
-			<div class="card-body text-center">
-				{{ comment.text }}
-			</div>
+  {% if previous >= 0 %}
+    <a href="{{ path( 'conference', { id: conference.id, offset: previous } ) }}"
+      class="btn btn-sm btn-primary"><<</a>
+  {% endif %}Il y a {{ (comments|length) ~ ' commentaire' ~ ((comments|length) > 1 ? 's' : '') }}
 
-			<div class="card-footer">
-				<div class="row text-center font-weight-bold">
-					<div class="col"></div>
-					<div class="col">
-						{{ 'Date : ' ~ (comment.createdAt|date('d-m-Y')) }}
-					</div>
-				</div>
-			</div>
-		</div>
-	{% endfor %}
+  {% if next < (comments|length) %}
+    <a href="{{ path( 'conference', { id: conference.id, offset: next } ) }}"
+      class="btn btn-sm btn-primary">>></a>
+  {% endif %}
+
+  <div class="row">
+    {% for comment in comments %}
+      <div class="col-6">
+        <div class="card text-left mt-4">
+          <div class="card-header">
+            Commentaire saisi le
+            <span class="font-weight-bold">
+              {{
+                comment.createdAt|date('d/m/Y à H:i', timezone = 'Europe/Paris')
+              }}
+            </span>, par
+            <span class="font-weight-bold">
+              {{ comment.author }}
+              <a href="mailto:{{ comment.email }}">({{ comment.email }})</a>
+            </span>
+          </div>
+          <div class="card-body">
+            <p class="card-text text-truncate">
+              {{ comment.text }}
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% block popup %}
+
+  {% endblock %}
 {% endblock %}
