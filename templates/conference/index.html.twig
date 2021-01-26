@@ -6,8 +6,20 @@
 
 {% block body %}
   <h1 class="mt-4">
-    Choisissez une conférence.
+    Choisissez ou créez une conférence.
   </h1>
+
+<div>
+          <a class="btn btn-primary"
+            href="{{
+            path(
+              'conference_newconference'
+            )
+            }}"
+            role="button">
+            Nouvelle Conférence
+          </a>
+        </div>
 
   <div class="mt-4">
     {% if previous >= 0 %}
@@ -42,8 +54,8 @@
 
   <form>
     <div class="row form-group mt-4">
-      <label for="city" class="col-sm-1 col-form-label">Ville :</label>
-      <div class="col-sm-4">
+      <label for="city" class="col-sm-2 col-form-label">Ville :</label>
+      <div class="col-sm-3">
         <select type="text"
           class="form-control"
           id="city_search"
@@ -56,8 +68,8 @@
           {% endfor %}
         </select>
       </div>
-      <label for="year" class="col-sm-1 col-form-label">Année :</label>
-      <div class="col-sm-4 form-group">
+      <label for="year" class="col-sm-2 col-form-label">Année :</label>
+      <div class="col-sm-3 form-group">
         <select type="text"
           class="form-control"
           id="year_search"

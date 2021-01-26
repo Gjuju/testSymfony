@@ -17,13 +17,27 @@
           Conférence française
         {% endif %}
       </h5>
+      <div class="mt-4">
+    <a class="btn btn-primary"
+      href="{{
+      path(
+        'conference_editconference',
+        {
+          id: conference.id
+        }
+      )
+      }}"
+      role="button">
+      Editer la conférence
+    </a>
+  </div>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-2 font-weight-bold text-right">
           Ville&nbsp;:
         </div>
-        <div class="col-3 text-left">
+        <div class="col-2 text-left">
           {{ conference.city }}
         </div>
         <div class="col-2 font-weight-bold text-right">
@@ -32,21 +46,53 @@
         <div class="col-2 text-left">
           {{ conference.year }}
         </div>
-        <div class="col-3">
-        <a class="btn btn-primary" href="{{ path( 'conference_newcomment', { id: conference.id } ) }}" role="button">Nouveau Commentaire</a>
+        <div class="col-4">
+          <a class="btn btn-primary"
+            href="{{
+            path(
+              'conference_newcomment',
+              {
+                id: conference.id
+              }
+            )
+            }}"
+            role="button">
+            Nouveau Commentaire
+          </a>
         </div>
       </div>
     </div>
   </div>
 
   {% if previous >= 0 %}
-    <a href="{{ path( 'conference', { id: conference.id, offset: previous } ) }}"
-      class="btn btn-sm btn-primary"><<</a>
-  {% endif %}Il y a {{ (comments|length) ~ ' commentaire' ~ ((comments|length) > 1 ? 's' : '') }}
+    <a href="{{
+      path(
+        'conference',
+        {
+          id: conference.id,
+          offset: previous
+        }
+      )
+      }}"
+      class="btn btn-sm btn-primary">
+      <<
+    </a>
+  {% endif %}Il y a {{ (comments|length) ~ ' commentaire'
+    ~ ((comments|length) > 1 ? 's' : '') }}
 
   {% if next < (comments|length) %}
-    <a href="{{ path( 'conference', { id: conference.id, offset: next } ) }}"
-      class="btn btn-sm btn-primary">>></a>
+    <a href="{{
+      path(
+        'conference',
+        {
+          id: conference.id,
+          offset: next
+        }
+      )
+      }}"
+      class="btn btn-sm btn-primary">
+      >>
+    </a>
   {% endif %}
 
   <div class="row">
@@ -74,6 +120,7 @@
       </div>
     {% endfor %}
   </div>
+  
 
   {% block popup %}
 

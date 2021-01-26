@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  nouvelle Conférence
+{% endblock %}
+
+{% block body %}
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title font-weight-bold">
+        Veuillez renseigner une nouvelle conférence
+      </h1>
+    </div>
+    <div class="card-body">
+      {{ form(form_newconference) }}
+    </div>
+  </div>
+{% endblock %}

@@ -22,13 +22,27 @@ class ConferenceRepository extends ServiceEntityRepository
     }
 
     public const PAGINATOR_PER_PAGE = 3;
-    public function getConferencePaginator(int $offset): Paginator
+    public function getConferencePaginator(int $offset, string $year = '', string $city = ''): Paginator
     {
-        $query = $this->createQueryBuilder('c')
-            ->orderBy('c.city', 'ASC')
+        $queryBuilder = $this->createQueryBuilder('c');
+        if ($year) {
+            $queryBuilder = $queryBuilder
+                ->andWhere('c.year = :year')
+                ->setParameter('year', $year);
+        }
+        if ($city) {
+            $queryBuilder = $queryBuilder
+                ->andWhere('c.city = :city')
+                ->setParameter('city', $city);
+        }
+        $query = $queryBuilder
+            ->orderBy('c.year', 'DESC')
+            ->addOrderBy('c.city', 'ASC')
             ->setMaxResults(self::PAGINATOR_PER_PAGE)
             ->setFirstResult($offset)
-            ->getQuery();
+            ->getQuery()
+        ;
+
         return new Paginator($query);
     }
 
@@ -49,19 +63,19 @@ class ConferenceRepository extends ServiceEntityRepository
     }
 
 
-    
+
     public function getListCity()
     {
-        $cites = [];
+        $cities = [];
         foreach ($this->createQueryBuilder('c')
             ->select('c.city')
             ->distinct(true)
             ->orderBy('c.city', 'ASC')
             ->getQuery()
             ->getResult() as $cols) {
-            $cites[] = $cols['city'];
+            $cities[] = $cols['city'];
         }
-        return $cites;
+        return $cities;
     }
 
     // /**
